@@ -2,9 +2,10 @@
 For legal reasons this is a project solely for educational purposes that will not be used.
 """
 
+from pathlib import Path
+
 import requests
 from bs4 import BeautifulSoup
-from pathlib import Path
 
 response = requests.get("https://archive.org/details/deltaruneost/")
 text = response.text
@@ -31,3 +32,10 @@ for i in range(0,len(names)):
         ext = ".mp3"
     with open(Path.home() / f"Music/Deltarune/{name["content"]}{ext}","wb") as file:
         file.write(content)
+
+
+# To convert the files later:
+
+# for file in *; do
+#     ffmpeg -i "$file" "../Deltarune_mp3/${file%.*}.mp3"
+# done
