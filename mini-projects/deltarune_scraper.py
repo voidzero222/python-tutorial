@@ -17,10 +17,6 @@ links = soup.find_all("link", itemprop="associatedMedia")
 filtered_links = [link for link in links if link["href"].endswith(".m4a") or link["href"].endswith(".mp3")]
 
 
-# for link in filtered_links:
-#     piracy = requests.get(link["href"])
-#     raw = piracy.raw 
-
 names = soup.find_all("meta", itemprop="name")
 
 
