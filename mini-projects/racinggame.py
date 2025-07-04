@@ -6,15 +6,15 @@ game_running = False
 class Part:
     def __init__(
         self,
-        name:str,
-        speed_modifier:float=1,
-        speed_offset:float=0,
-        wind_resistance_modifier:float=1,
-        wind_resistance_offset:float=0,
-        weight_modifier:float=1,
-        weight_offset:float=0,
-        acceleration_modifier:float=1,
-        acceleration_offset:float=0,
+        name: str,
+        speed_modifier: float = 1,
+        speed_offset: float = 0,
+        wind_resistance_modifier: float = 1,
+        wind_resistance_offset: float = 0,
+        weight_modifier: float = 1,
+        weight_offset: float = 0,
+        acceleration_modifier: float = 1,
+        acceleration_offset: float = 0,
     ):
         self.name = name
         self.speed_modifier = speed_modifier
@@ -29,14 +29,18 @@ class Part:
 
 class Nitro(Part):
     def __init__(
-        self, name:str="Nitro", speed_offset:float=0, wind_resistance_offset:float=0, weight_offset:float=0
-    ):
+        self,
+        name: str = "Nitro",
+        speed_offset: float = 0,
+        wind_resistance_offset: float = 0,
+        weight_offset: float = 0,
+    ) -> None:
         self.speed_offset = speed_offset
         self.wind_resistance_offset = wind_resistance_offset
         self.weight_offset = weight_offset
         self.name = name
 
-    def __str__(self)-> str:
+    def __str__(self) -> str:
         return (
             f"A {self.name} booster with a speed boost of {self.speed_offset},"
             f"it is heavy, affecting the weight by {self.weight_offset} "
@@ -45,24 +49,28 @@ class Nitro(Part):
 
 
 class Tire(Part):
-    def __init__(self, name:str="Tires", speed_modifier:float=1):
+    def __init__(self, name: str = "Tires", speed_modifier: float = 1):
         self.speed_modifier = speed_modifier
         self.name = name
 
-    def __str__(self)->str:
+    def __str__(self) -> str:
         return f"A set of {self.name} that modify your speed by {self.speed_modifier}."
 
 
 class Motor(Part):
     def __init__(
-        self, name:str="Motor", weight_offset:float=0, acceleration_modifier:float=1, speed_modifier:float=1
+        self,
+        name: str = "Motor",
+        weight_offset: float = 0,
+        acceleration_modifier: float = 1,
+        speed_modifier: float = 1,
     ):
         self.weight_offset = weight_offset
         self.acceleration_modifier = acceleration_modifier
         self.speed_modifier = speed_modifier
         self.name = name
 
-    def __str__(self)->str:
+    def __str__(self) -> str:
         return (
             f"A {self.name}, that weighs {self.weight_offset},"
             f"and modifies your acceleration by {self.acceleration_modifier}."
@@ -71,18 +79,29 @@ class Motor(Part):
 
 
 class Spoiler(Part):
-    def __init__(self, name:str="Spoiler", wind_resistance_modifier:float=1, weight_offset:float=0):
+    def __init__(
+        self,
+        name: str = "Spoiler",
+        wind_resistance_modifier: float = 1,
+        weight_offset: float = 0,
+    ):
         self.wind_resistance_modifier = wind_resistance_modifier
         self.weight_offset = weight_offset
         self.name = name
 
-    def __str__(self)->str:
+    def __str__(self) -> str:
         return f"A {self.name} that impacts your wind resistance by {self.wind_resistance_modifier} and increases your weight by {self.weight_offset}."
 
 
 class Car:
     def __init__(
-        self, brand:str, model:str, base_speed:float, base_wind_resistance:float, weight:float, acceleration:float
+        self,
+        brand: str,
+        model: str,
+        base_speed: float,
+        base_wind_resistance: float,
+        weight: float,
+        acceleration: float,
     ):
         self.brand = brand
         self.model = model
@@ -96,7 +115,7 @@ class Car:
         self.motor = Motor()
         self.spoiler = Spoiler()
 
-    def __str__(self)->str:
+    def __str__(self) -> str:
         return (
             f"The {self.model} by {self.brand} speed:{self.base_speed}km/h "
             f"acceleration:{self.acceleration}kmh/s wind resistance:"
@@ -140,22 +159,22 @@ SPOILERS = [
 ]
 
 
-def speed_calculation(car:Car)->float:
-    distance:float = 10000
-    final_speed:float = (
+def speed_calculation(car: Car) -> float:
+    distance: float = 10000
+    final_speed: float = (
         car.base_speed * car.motor.speed_modifier * car.tire.speed_modifier
     ) + car.nitro.speed_offset
 
-    final_acceleration:float = car.acceleration * car.motor.acceleration_modifier
+    final_acceleration: float = car.acceleration * car.motor.acceleration_modifier
 
-    effective_weight:float = (
+    effective_weight: float = (
         car.weight
         + car.motor.weight_offset
         + car.nitro.weight_offset
         + car.spoiler.weight_offset
     )
 
-    effective_wind_resistance:float = (
+    effective_wind_resistance: float = (
         car.base_wind_resistance * car.spoiler.wind_resistance_modifier
     )
 
