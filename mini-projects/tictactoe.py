@@ -22,15 +22,15 @@ def winning(fields):
     rows = [row1,row2,row3,col1,col2,col3,dia1,dia2]
     for x in rows:
         if "xxx" in x:
-            print("The bot has won!")
+            print("The bot has won!\n")
             print_game_state(fields)
             return -1
         if "ooo" in x:
-            print("You have won!")
+            print("You have won!\n")
             print_game_state(fields)
             return 1
     if " " not in fields_string:
-        print("No one won!")
+        print("No one won!\n")
         print_game_state(fields)
         return 0
     return 2
@@ -39,7 +39,7 @@ def main():
     fields = list(" "*9)
     playing = False
 
-    start=input("Do you want to play TicTacToe? Type anything if yes.")
+    start=input("Do you want to play TicTacToe? Type anything if yes.\n")
     if start:
         playing = True
         while playing:
@@ -47,9 +47,9 @@ def main():
             
             while True:
                 try:
-                    player_choice = int(input("Where do you want to place your circle?"))
+                    player_choice = int(input("Where do you want to place your circle?\n"))
                 except ValueError:
-                    print("Only numbers, try again.")
+                    print("Only numbers, try again.\n")
                 options = range(0,9)
                 if player_choice in options:
                     if fields[player_choice] == " ":
@@ -57,7 +57,7 @@ def main():
                         break
                 
                     else:
-                        print("That space is occupied")
+                        print("That space is occupied.\n")
             
             if winning(fields) != 2:
                 exit()  
@@ -71,7 +71,7 @@ def main():
             if winning(fields) != 2:
                 exit()    
     else:
-        print("Why did you even start?")
+        print("Why did you even start?\n")
         exit()
 
 if __name__ == "__main__":
