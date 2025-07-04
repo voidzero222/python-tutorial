@@ -1,5 +1,5 @@
-import time
 import random
+import time
 
 print(
     "Welcome to Crab Game!\nA game about a crab living in a hut on the beach.\nThis crab really loves to collect things."
@@ -16,21 +16,30 @@ LSTUFF = ["sand", "shell", "crab", "fish", "mussel", "coin"]
 DSTUFF = ["shell", "shiny rock", "worm", "pearl", "coin", "necklace", "ring", "glass"]
 
 while True:
-    play = input("Type something in to start your new life as a crab. If you're too scared, just press Enter to exit.\n")
+    play = input(
+        "Type something in to start your new life as a crab. If you're too scared, just press Enter to exit.\n"
+    )
     if play:
         game_running = True
-        inventory = dict()
+        inventory: dict[str, int] = {}
         start_time = time.time()
         print("You wake up, another beautiful day of collecting stuff ahead of you!")
         break
     else:
         exit()
-    
-    
+
+
 while game_running == True:
     elapsed_time = time.time() - start_time
     score = sum(inventory.values())
-    score=int(score)
+    score = int(score)
+    try:
+        with open("saves.txt", "r") as file:
+            previous = int(file.read().strip())
+    except FileNotFoundError:
+        with open("saves.txt", "w") as file:
+            file.write("0")
+            previous = 0
     if elapsed_time > 60:
         print("The wave is coming, you better run!")
         print("...\n")
@@ -42,17 +51,15 @@ while game_running == True:
         for item, amount in sorted(inventory.items()):
             print(f"-{item.capitalize()}: {amount}")
         if score > previous:
-            print(f"This was a new highscore! You beat your old score {previous} by {score-previous} with your new score of {score}.\nCongratulations!")
+            print(
+                f"This was a new highscore! You beat your old score {previous} by {score-previous} with your new score of {score}.\nCongratulations!"
+            )
         else:
-            print(f"You didn't beat your old score of {previous}. But you still did well with your score of {score}")
+            print(
+                f"You didn't beat your old score of {previous}. But you still did well with your score of {score}"
+            )
         break
-    try:
-        with open("saves.txt", "r") as file:
-            previous = int(file.read().strip())
-    except FileNotFoundError:
-        with open("saves.txt", "w") as file:
-            file.write("0")
-            previous = 0
+
     if score > previous:
         with open("saves.txt", "w") as file:
             file.write(str(score))
@@ -103,14 +110,18 @@ while game_running == True:
                 inventory[stuff_player] = amount_d
         else:
             print("You sadly didn't find anything.")
-    elif player_action== "g":
+    elif player_action == "g":
         print("You run away to your hut, before the wave was even visible.")
         print(f"Your score:{score}")
         print("All the Stuff you collected:")
         for item, amount in sorted(inventory.items()):
             print(f"-{item.capitalize()}: {amount}")
         if score > previous:
-            print(f"This was a new highscore! You beat your old score {previous} by {score-previous} with your new score of {score}.\nCongratulations!")
+            print(
+                f"This was a new highscore! You beat your old score {previous} by {score-previous} with your new score of {score}.\nCongratulations!"
+            )
         else:
-            print(f"You didn't beat your old score of {previous}. But you still did well with your score of {score}")
+            print(
+                f"You didn't beat your old score of {previous}. But you still did well with your score of {score}"
+            )
         break
