@@ -1,7 +1,7 @@
 import random
 
 
-def print_game_state(fields):
+def print_game_state(fields:list[str])-> None:
     print("""
 {0}|{1}|{2}
 {3}|{4}|{5}
@@ -9,7 +9,7 @@ def print_game_state(fields):
     """.format(*fields))
  
 
-def winning(fields):
+def winning(fields:list[str])-> int:
     fields_string = "".join(fields)
     row1 = fields_string[0:3]
     row2 = fields_string[3:6]
@@ -35,7 +35,7 @@ def winning(fields):
         return 0
     return 2
 
-def main():
+def main()->None:
     fields = list(" "*9)
     playing = False
 

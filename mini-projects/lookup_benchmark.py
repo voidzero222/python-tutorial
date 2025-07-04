@@ -1,28 +1,32 @@
 import random
 import time
+from collections.abc import Iterable 
+from typing import Callable
+type Func = Callable[[int, list[int]], float | int | None]
 
-
-def lookup_linear(value,arr):
-    i=0
+def lookup_linear(value:int , arr:list[int])-> int:
+    i = 0
     for item in arr:
-        if item != value:
-            i = i+1
-        elif item == value:
+        if item == value:
             return i
+        else:
+            i = i+1
+    return -1
+            
+            
 
-
-def lookup_index(value,arr):
+def lookup_index(value:int,arr:list[int])-> int:
     return arr.index(value)
 
 
-def lookup_random(value,arr):
+def lookup_random(value:int,arr:list[int]) -> int:
     while True:
         i = random.randrange(len(arr)) 
         if arr[i] == value:
             return i 
 
 
-def lookup_binary_no_sort(value, arr):
+def lookup_binary_no_sort(value:int, arr:list[int]) ->int:
     length = len(arr)
     half = length // 2
     last_half_half = half
@@ -38,12 +42,12 @@ def lookup_binary_no_sort(value, arr):
             half -= last_half_half
 
 
-def lookup_binary_sort(value, arr):
+def lookup_binary_sort(value:int, arr:list[int])->int:
     random.shuffle(arr)
     return lookup_binary_no_sort(value, sorted(arr))
 
 
-def benchmark(func):
+def benchmark(func:Func)-> list[float]:
     times = []
     for item_amount in [10, 100, 1_000, 10_000, 1_000_000]:
         tries = 100 
@@ -61,7 +65,7 @@ def benchmark(func):
     return times
 
 
-def print_benchmark_results(func):
+def print_benchmark_results(func:Func)-> None:
     results = benchmark(func)
     amounts = [10, 100, 1_000, 10_000, 1_000_000]
     i = 0
@@ -70,6 +74,7 @@ def print_benchmark_results(func):
         print(f"Result for {amounts[i]}: {result:.10f}")
         i += 1
     print()
+    
 
 
 print_benchmark_results(lookup_linear)

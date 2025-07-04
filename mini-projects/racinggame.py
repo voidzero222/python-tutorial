@@ -6,15 +6,15 @@ game_running = False
 class Part:
     def __init__(
         self,
-        name,
-        speed_modifier=1,
-        speed_offset=0,
-        wind_resistance_modifier=1,
-        wind_resistance_offset=0,
-        weight_modifier=1,
-        weight_offset=0,
-        acceleration_modifier=1,
-        acceleration_offset=0,
+        name:str,
+        speed_modifier:float=1,
+        speed_offset:float=0,
+        wind_resistance_modifier:float=1,
+        wind_resistance_offset:float=0,
+        weight_modifier:float=1,
+        weight_offset:float=0,
+        acceleration_modifier:float=1,
+        acceleration_offset:float=0,
     ):
         self.name = name
         self.speed_modifier = speed_modifier
@@ -29,14 +29,14 @@ class Part:
 
 class Nitro(Part):
     def __init__(
-        self, name="Nitro", speed_offset=0, wind_resistance_offset=0, weight_offset=0
+        self, name:str="Nitro", speed_offset:float=0, wind_resistance_offset:float=0, weight_offset:float=0
     ):
         self.speed_offset = speed_offset
         self.wind_resistance_offset = wind_resistance_offset
         self.weight_offset = weight_offset
         self.name = name
 
-    def __str__(self):
+    def __str__(self)-> str:
         return (
             f"A {self.name} booster with a speed boost of {self.speed_offset},"
             f"it is heavy, affecting the weight by {self.weight_offset} "
@@ -45,24 +45,24 @@ class Nitro(Part):
 
 
 class Tire(Part):
-    def __init__(self, name="Tires", speed_modifier=1):
+    def __init__(self, name:str="Tires", speed_modifier:float=1):
         self.speed_modifier = speed_modifier
         self.name = name
 
-    def __str__(self):
+    def __str__(self)->str:
         return f"A set of {self.name} that modify your speed by {self.speed_modifier}."
 
 
 class Motor(Part):
     def __init__(
-        self, name="Motor", weight_offset=0, acceleration_modifier=1, speed_modifier=1
+        self, name:str="Motor", weight_offset:float=0, acceleration_modifier:float=1, speed_modifier:float=1
     ):
         self.weight_offset = weight_offset
         self.acceleration_modifier = acceleration_modifier
         self.speed_modifier = speed_modifier
         self.name = name
 
-    def __str__(self):
+    def __str__(self)->str:
         return (
             f"A {self.name}, that weighs {self.weight_offset},"
             f"and modifies your acceleration by {self.acceleration_modifier}."
@@ -71,18 +71,18 @@ class Motor(Part):
 
 
 class Spoiler(Part):
-    def __init__(self, name="Spoiler", wind_resistance_modifier=1, weight_offset=0):
+    def __init__(self, name:str="Spoiler", wind_resistance_modifier:float=1, weight_offset:float=0):
         self.wind_resistance_modifier = wind_resistance_modifier
         self.weight_offset = weight_offset
         self.name = name
 
-    def __str__(self):
+    def __str__(self)->str:
         return f"A {self.name} that impacts your wind resistance by {self.wind_resistance_modifier} and increases your weight by {self.weight_offset}."
 
 
 class Car:
     def __init__(
-        self, brand, model, base_speed, base_wind_resistance, weight, acceleration
+        self, brand:str, model:str, base_speed:float, base_wind_resistance:float, weight:float, acceleration:float
     ):
         self.brand = brand
         self.model = model
@@ -96,7 +96,7 @@ class Car:
         self.motor = Motor()
         self.spoiler = Spoiler()
 
-    def __str__(self):
+    def __str__(self)->str:
         return (
             f"The {self.model} by {self.brand} speed:{self.base_speed}km/h "
             f"acceleration:{self.acceleration}kmh/s wind resistance:"
@@ -140,27 +140,27 @@ SPOILERS = [
 ]
 
 
-def speed_calculation(car):
-    distance = 1000
-    final_speed = (
+def speed_calculation(car:Car)->float:
+    distance:float = 10000
+    final_speed:float = (
         car.base_speed * car.motor.speed_modifier * car.tire.speed_modifier
     ) + car.nitro.speed_offset
 
-    final_acceleration = car.acceleration * car.motor.acceleration_modifier
+    final_acceleration:float = car.acceleration * car.motor.acceleration_modifier
 
-    effective_weight = (
+    effective_weight:float = (
         car.weight
         + car.motor.weight_offset
         + car.nitro.weight_offset
         + car.spoiler.weight_offset
     )
 
-    effective_wind_resistance = (
+    effective_wind_resistance:float = (
         car.base_wind_resistance * car.spoiler.wind_resistance_modifier
     )
 
     final_speed -= effective_wind_resistance / 100
-    final_speed -= effective_weight / 1000
+    final_speed -= effective_weight / 100
     race_time = distance / (final_speed * (final_acceleration / 10))
     return race_time
 
@@ -178,9 +178,9 @@ while True:
     for car in CARS:
         print(f"[{i}] {car}")
         i += 1
-    current_car = input("Which car would you like to start with?\n>>>")
+    selection = input("Which car would you like to start with?\n>>>")
     try:
-        current_car = CARS[int(current_car)]
+        current_car = CARS[int(selection)]
         break
     except ValueError:
         print("Only numbers, try again.")
@@ -217,9 +217,9 @@ while game_running == True:
                 for nitro in NITROS:
                     print(f"[{i}] {nitro}")
                     i += 1
-                current_car.nitro = input("Which Nitro do you want to choose?\n")
+                selection_nitro = input("Which Nitro do you want to choose?\n")
                 try:
-                    current_car.nitro = NITROS[int(current_car.nitro)]
+                    current_car.nitro = NITROS[int(selection_nitro)]
                     break
                 except ValueError:
                     print("Only numbers, try again.")
@@ -231,9 +231,9 @@ while game_running == True:
                 for tire in TIRES:
                     print(f"[{i}] {tire}")
                     i += 1
-                current_car.tire = input("Which Tires do you want to choose?\n")
+                selection_tires = input("Which Tires do you want to choose?\n")
                 try:
-                    current_car.tire = TIRES[int(current_car.tire)]
+                    current_car.tire = TIRES[int(selection_tires)]
                     break
                 except ValueError:
                     print("Only numbers, try again.")
@@ -245,9 +245,9 @@ while game_running == True:
                 for motor in MOTORS:
                     print(f"[{i}] {motor}")
                     i += 1
-                current_car.motor = input("Which Motor do you want to choose?\n")
+                selection_motor = input("Which Motor do you want to choose?\n")
                 try:
-                    current_car.motor = MOTORS[int(current_car.motor)]
+                    current_car.motor = MOTORS[int(selection_motor)]
                     break
                 except ValueError:
                     print("Only numbers, try again.")
@@ -259,9 +259,9 @@ while game_running == True:
                 for spoiler in SPOILERS:
                     print(f"[{i}] {spoiler}")
                     i += 1
-                current_car.spoiler = input("Which Spoiler do you want to choose?\n")
+                selection_spoiler = input("Which Spoiler do you want to choose?\n")
                 try:
-                    current_car.spoiler = SPOILERS[int(current_car.spoiler)]
+                    current_car.spoiler = SPOILERS[int(selection_spoiler)]
                     break
                 except ValueError:
                     print("Only numbers, try again.")
@@ -273,9 +273,9 @@ while game_running == True:
             for car in CARS:
                 print(f"[{i}] {car}")
                 i += 1
-            current_car = input("Which car would you like to start with?\n>>>")
+            selection_car = input("Which car would you like to start with?\n>>>")
             try:
-                current_car = CARS[int(current_car)]
+                current_car = CARS[int(selection_car)]
                 break
             except ValueError:
                 print("Only numbers, try again.")

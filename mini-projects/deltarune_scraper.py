@@ -1,3 +1,4 @@
+# type: ignore
 """
 For legal reasons this is a project solely for educational purposes that will not be used.
 """
