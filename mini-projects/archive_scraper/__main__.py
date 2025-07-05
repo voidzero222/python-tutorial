@@ -1,6 +1,6 @@
 import argparse
 from pathlib import Path
-from _version import __version__
+from version import __version__ #type: ignore
 
 
 def main() -> None:
@@ -36,7 +36,7 @@ def main() -> None:
     
     args = parser.parse_args()
     
-    url: str = args.url 
+    url:str = args.url 
     output_dir :Path = Path(args.output_directory).absolute().resolve()
     version = args.version
     

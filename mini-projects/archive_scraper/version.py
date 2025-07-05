@@ -1,5 +1,5 @@
 import re
-VERSIONFILE="myniftyapp/_version.py"
+VERSIONFILE = "myniftyapp/version.py"
 verstrline = open(VERSIONFILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, verstrline, re.M)
