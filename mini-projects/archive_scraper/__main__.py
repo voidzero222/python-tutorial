@@ -1,7 +1,8 @@
 import argparse
 from pathlib import Path
 
-__version__ = ""
+__version__ = (0, 1, 0)
+version_string = ".".join(map(str, __version__))
 
 
 def main() -> None:
@@ -27,20 +28,19 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-V",
+        "-v",
         "--version",
         action = "version",
-        help = "The version.",
-        version = "%(prog)s {version}".format(version = __version__),
+        help = "The program version.",
+        version = "%(prog)s v{version}".format(version=version_string),
     )
     
-    parser.set_defaults(func = parser.print_help)
+    parser.set_defaults(func=parser.print_help)
     
     args = parser.parse_args()
     
-    url = args.url 
+    url: str = args.url
     output_dir = Path(args.output_directory).absolute().resolve()
-    version = args.version
     
 if __name__ == "__main__":
     main()
