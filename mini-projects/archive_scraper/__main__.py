@@ -29,7 +29,7 @@ def main() -> None:
         "-V",
         "--version",
         action = "version",
-        help = "The python version being used.",
+        help = "The version.",
         version = "%(prog)s {version}".format(version = __version__),
     )
     
