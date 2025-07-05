@@ -29,7 +29,8 @@ def main() -> None:
         "-V",
         "--version",
         action = "version",
-        version = "%(prog)s {version}".format(version = __version__)
+        help = "The python version being used.",
+        version = "%(prog)s {version}".format(version = __version__),
     )
     
     parser.set_defaults(func = parser.print_help)
