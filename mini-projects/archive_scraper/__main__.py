@@ -1,6 +1,6 @@
 import argparse
 from pathlib import Path
-from version import __version__ #type: ignore
+from _version import __version__ #type: ignore
 
 
 def main() -> None:
