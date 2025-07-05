@@ -38,9 +38,9 @@ def main() -> None:
     
     args = parser.parse_args()
     
-    url :str = args.url 
-    output_dir :Path = Path(args.output_directory).absolute().resolve()
-    version :str = args.version
+    url = args.url 
+    output_dir = Path(args.output_directory).absolute().resolve()
+    version = args.version
     
 if __name__ == "__main__":
     main()
